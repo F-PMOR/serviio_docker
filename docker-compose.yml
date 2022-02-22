@@ -5,15 +5,12 @@ services:
     image: jpspringall/serviio:latest
     container_name: serviio
     network_mode: "host"
-    #networks:
-    #  - host 
-    #serviio_net:
-    #    ipv4_address: 192.168.1.3
     environment:
       - PUID=1000
       - PGID=100
       - TZ=TZ/CODE
     volumes:
+      - /tmp:/tmp
       - /etc/localtime:/etc/localtime
       - /data/image:/media/image
       - /data/audio:/media/audio
@@ -25,6 +22,8 @@ services:
       - "23423:23423/tcp"
       - "8895:8895/tcp"
       - "1900:1900/udp"
+    restart: always
+
 volumes:
   serviio_library:
     external: true
@@ -33,16 +32,6 @@ volumes:
   serviio_plugins:
     external: true
 
-networks:
-  host:
-    external: true
-    #serviio:
-    #driver: host
-    #pub_net: 
-    #external: true
-    #  serviio_net:
-    #driver: macvlan
-    #subnet: 192.168.1.0/24
-    #gateway: 192.168.1.1
-    #driver_opts:
-    #  parent: eth0      
+#networks:
+#  host:
+#    external: true
